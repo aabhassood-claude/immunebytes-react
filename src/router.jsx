@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
   // Chrome / top-level pages
   { path: '/audits', element: <AuditPage /> },
   { path: '/clients', element: <ClientPage /> },
-  { path: '/about', element: <AboutPage /> },
+  { path: '/about', element: <AboutPageRoute /> },
   { path: '/engagement-models', element: <EngagementPageRoute /> },
   { path: '/pricing', element: <PricingPageRoute /> },
   { path: '/pricing-calculator', element: <PricingPageRoute /> },
