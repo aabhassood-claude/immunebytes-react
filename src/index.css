@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@theme {
+  --color-immune-green: #74BF00;
+  --color-immune-green-soft: #9AE034;
+  --color-immune-green-deep: #5C9A00;
+  --color-immune-green-bright: #82d600;
+  --color-slate-dark: #272526;
+
+  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'Fira Code', ui-monospace, monospace;
+
+  --tracking-tightest: -0.04em;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', system-ui, sans-serif; background: #000; color: #fff; }
+*::selection { background: #74BF00; color: #000; }
+
+/* Hide horizontal scroll from any matrix overflow */
+html, body { overflow-x: hidden; }
+
+/* Matrix-rain canvas */
+.matrix-rain {
+  position: absolute; inset: 0; pointer-events: none;
+  z-index: 0;
+}
+
+/* Terminal cursor blink */
+@keyframes blink { 50% { opacity: 0; } }
+.term-cursor { animation: blink 1s steps(1) infinite; }
+
+/* Subtle pulse for CTA streaks */
+@keyframes streak { 0%,100% { opacity: 0.05; } 50% { opacity: 0.2; } }
+.cta-streak { animation: streak 2.6s ease-in-out infinite; }
+
+/* Reveal-on-scroll — DISABLED. Render content fully visible always. */
+.reveal { opacity: 1 !important; transform: none !important; }
+
+/* Header gradient transition */
+.header-shell {
+  transition: background-color 220ms ease, border-color 220ms ease, backdrop-filter 220ms ease;
+}
+
+/* Service row hover */
+.service-row { transition: background-color 200ms ease; }
+.service-row:hover { background-color: rgb(244 244 245 / 1); }
+.service-row:hover .service-numeral { color: rgb(186 230 100 / 1); }
+.service-row:hover .service-cta-arrow { transform: translateX(4px); color: #74BF00; }
+
+/* Card hover arrow */
+.card-arrow { transition: transform .2s ease; }
+.group:hover .card-arrow { transform: translateX(4px); }
+
+/* Logo strip greyscale -> color on hover */
+.logo-grey { filter: grayscale(1) brightness(.6); transition: filter .25s ease; }
+.logo-grey:hover { filter: grayscale(0) brightness(1); }
+
+/* Mega menu animation */
+.mega-enter {
+  animation: megaEnter 220ms ease-out forwards;
+}
+@keyframes megaEnter {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Faint terminal grid for CTA section */
+.terminal-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Crisp focus ring */
+button:focus-visible, a:focus-visible, input:focus-visible {
+  outline: 2px solid #74BF00; outline-offset: 2px; border-radius: 6px;
+}
+
+/* Hide scrollbar in mobile drawer for cleanliness */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* Marquee for trusted-by logos */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track { animation: marquee 38s linear infinite; width: max-content; }
+.marquee-track:hover { animation-play-state: paused; }
+
+/* Subtle drifting code particles for hero / dark sections */
+@keyframes drift {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-100vh); }
+}
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+.scanline {
+  position: absolute; left: 0; right: 0; height: 80px;
+  background: linear-gradient(180deg, transparent, rgba(116,191,0,0.06), transparent);
+  animation: scanline 12s linear infinite;
+  pointer-events: none;
+}
+
+/* Drift animation for chrome hero pattern */
+@keyframes drift-x { from { transform: translateX(0); } to { transform: translateX(-60px); } }
+
+/* Check path animation for deliverables */
+.check-path {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 0;
+}
+
+/* Failure card hover */
+.failure-card {
+  transition: border-color 200ms ease;
+}
