@@ -11,6 +11,8 @@ import {
   ContactPageRoute,
 } from './pages/Chrome';
 
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/';
+
 export const router = createBrowserRouter([
   // Home
   { path: '/', element: <Home /> },
@@ -33,4 +35,4 @@ export const router = createBrowserRouter([
   { path: '/case-studies/*', element: <ClientPage /> },
   { path: '/careers', element: <AboutPageRoute /> },
   { path: '/legal/*', element: <Home /> },
-]);
+], { basename });
