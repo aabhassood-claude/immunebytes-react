@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { SectionLabel, ButtonPrimary, ButtonSecondary, Reveal } from './Primitives';
+import { ContactFormModal } from './ContactFormModal';
 
 // ----- Matrix rain background canvas -----------------------
 export function MatrixRain() {
@@ -194,6 +195,7 @@ export function TerminalMockup() {
 
 // ----- Hero section ----------------------------------------
 export function Hero() {
+  const [contactOpen, setContactOpen] = useState(false);
   return (
     <section className="relative isolate bg-black pt-[112px] pb-24 md:pt-[148px] md:pb-32 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
@@ -240,11 +242,18 @@ export function Hero() {
           </Reveal>
           <Reveal delay={240}>
             <div className="mt-9 flex flex-wrap items-center gap-3">
-              <ButtonPrimary href="/contact" size="lg">Send Query</ButtonPrimary>
-              <ButtonSecondary href="#services" theme="dark" icon="ArrowDown" size="lg">
+              <button
+                onClick={() => setContactOpen(true)}
+                className="inline-flex items-center gap-2 rounded-full bg-immune-green text-black font-display font-semibold whitespace-nowrap h-12 px-6 text-[15px] hover:bg-[#82d600] transition-colors"
+              >
+                Talk to an Expert
+                <span className="inline-flex"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+              </button>
+              <ButtonSecondary href="/about" theme="dark" icon="ArrowDown" size="lg">
                 Learn More
               </ButtonSecondary>
             </div>
+            <ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} />
           </Reveal>
           <Reveal delay={320}>
             <div className="mt-12 flex flex-wrap items-center gap-x-7 gap-y-3 font-mono text-[11.5px] text-zinc-500">

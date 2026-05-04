@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { LIcon } from './LIcon';
 import { Logo } from './Logo';
 import { ButtonPrimary } from './Primitives';
+import { ContactFormModal } from './ContactFormModal';
 
 const SOLUTIONS_COLUMNS = [
   {
@@ -173,7 +174,7 @@ function MegaMenu({ open, onClose }) {
   );
 }
 
-function MobileDrawer({ open, onClose }) {
+function MobileDrawer({ open, onClose, onContactOpen }) {
   if (!open) return null;
   const [openCol, setOpenCol] = useState("web3");
   return (
@@ -241,9 +242,12 @@ function MobileDrawer({ open, onClose }) {
         </nav>
 
         <div className="mt-8">
-          <ButtonPrimary href="/contact" className="w-full justify-center">
+          <button
+            onClick={onContactOpen}
+            className="w-full justify-center inline-flex items-center gap-2 rounded-full bg-immune-green text-black font-display font-semibold whitespace-nowrap h-11 px-5 text-[14px] hover:bg-[#82d600] transition-colors"
+          >
             Talk to an Expert
-          </ButtonPrimary>
+          </button>
         </div>
       </div>
     </div>
@@ -254,6 +258,7 @@ export function Header({ activePath = "/" }) {
   const [scrolled, setScrolled] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
   const closeTimer = useRef(null);
 
   useEffect(() => {
@@ -324,9 +329,13 @@ export function Header({ activePath = "/" }) {
           </nav>
 
           <div className="flex items-center gap-3 justify-self-end">
-            <ButtonPrimary href="/contact" className="hidden sm:inline-flex" size="sm">
+            <button
+              onClick={() => setContactOpen(true)}
+              className="hidden sm:inline-flex items-center gap-2 rounded-full bg-immune-green text-black font-display font-semibold whitespace-nowrap h-9 px-4 text-[13px] hover:bg-[#82d600] transition-colors"
+            >
               Talk to an Expert
-            </ButtonPrimary>
+              <span className="inline-flex"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+            </button>
             <button
               className="lg:hidden text-zinc-200 p-2 -mr-2"
               aria-label="Open menu"
@@ -338,7 +347,8 @@ export function Header({ activePath = "/" }) {
         </div>
       </header>
 
-      <MobileDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+      <MobileDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} onContactOpen={() => { setDrawerOpen(false); setContactOpen(true); }} />
+      <ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} />
     </>
   );
 }

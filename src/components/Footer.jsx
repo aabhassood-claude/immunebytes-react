@@ -4,15 +4,15 @@ import { Logo } from './Logo';
 
 const FOOTER_SOLUTIONS = [
   [
-    { label: "Smart Contract Audit",  href: "/solutions/web3/smart-contract" },
-    { label: "Protocol & Infra",      href: "/solutions/web3/protocol" },
-    { label: "Wallet Security",       href: "/solutions/web3/wallet" },
-    { label: "Tokenomics Audit",      href: "/solutions/web3/protocol/tokenomics" },
+    { label: "Web3 Security",         href: "/solutions/web3/smart-contract" },
+    { label: "Penetration Testing",   href: "/solutions/web2/pentest" },
+    { label: "AI Security",           href: "/solutions/ai/agent" },
+    { label: "Security Consultancy",  href: "/solutions/consultancy/shift-left" },
   ],
   [
-    { label: "Penetration Testing",   href: "/solutions/web2/pentest" },
+    { label: "Protocol & Infra",      href: "/solutions/web3/protocol" },
+    { label: "Wallet Security",       href: "/solutions/web3/wallet" },
     { label: "Mobile App Testing",    href: "/solutions/web2/mobile" },
-    { label: "AI Agent Audit",        href: "/solutions/ai/agent" },
     { label: "LLM Integration Audit", href: "/solutions/ai/llm" },
   ],
 ];
@@ -33,12 +33,10 @@ const FOOTER_COMPANY = [
 ];
 
 const SOCIALS = [
-  { name: "X / Twitter", icon: "Twitter",   href: "https://x.com" },
-  { name: "LinkedIn",    icon: "Linkedin",  href: "https://linkedin.com" },
-  { name: "Telegram",    icon: "Send",      href: "https://t.me" },
-  { name: "Discord",     icon: "MessagesSquare", href: "https://discord.com" },
-  { name: "GitHub",      icon: "Github",    href: "https://github.com" },
-  { name: "YouTube",     icon: "Youtube",   href: "https://youtube.com" },
+  { name: "LinkedIn",    icon: "Linkedin",  href: "https://www.linkedin.com/company/immunebytes" },
+  { name: "GitHub",      icon: "Github",    href: "https://github.com/ImmuneBytes" },
+  { name: "X / Twitter", icon: "Twitter",   href: "https://x.com/ImmuneBytes" },
+  { name: "Telegram",    icon: "Send",      href: "https://t.me/ImmuneBytes" },
 ];
 
 const CHAINS = [
@@ -152,9 +150,9 @@ export function Footer() {
               Web3 space more secure through innovative and effective solutions.
             </p>
             <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
-              <a href="tel:+919999999999" className="font-mono text-[13px] text-zinc-400 hover:text-white inline-flex items-center gap-2">
+              <a href="tel:+917303699708" className="font-mono text-[13px] text-zinc-400 hover:text-white inline-flex items-center gap-2">
                 <LIcon name="Phone" size={13} className="text-immune-green" />
-                +91 99999 99999
+                +91 7303699708
               </a>
               <a href="mailto:team@immunebytes.com" className="font-mono text-[13px] text-zinc-400 hover:text-white inline-flex items-center gap-2">
                 <LIcon name="Mail" size={13} className="text-immune-green" />

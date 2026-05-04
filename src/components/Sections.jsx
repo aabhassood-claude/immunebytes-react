@@ -1,28 +1,45 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { LIcon } from './LIcon';
 import { LogoMark } from './Logo';
 import { SectionLabel, ButtonPrimary, ButtonSecondary, ButtonGhost, Reveal, SectionHeading } from './Primitives';
+import { ContactFormModal } from './ContactFormModal';
 
 // ============================================================
 // 4.3 — TRUSTED BY (logo strip)
 // ============================================================
 const CLIENT_LOGOS = [
-  { name: "Vanar",   href: "/clients/vanar" },
-  { name: "E.Money", href: "/clients/emoney" },
-  { name: "Dernex",  href: "/clients/dernex" },
-  { name: "cSigma",  href: "/clients/csigma" },
-  { name: "Polygon", href: "/clients/polygon" },
-  { name: "Plume",   href: "/clients/plume" },
+  { name: "cSigma Finance" },
+  { name: "Cross The Ages" },
+  { name: "Plume Network" },
+  { name: "Collect Foundation" },
+  { name: "Virtua" },
+  { name: "PolyTrade" },
+  { name: "MahaDao" },
+  { name: "GoodDollar" },
+  { name: "TrueFi" },
+  { name: "Ethernity" },
+  { name: "Boson Protocol" },
+  { name: "Dem Exchange" },
+  { name: "Vanar Blockchain" },
+  { name: "SmartCredit" },
 ];
 
 function ClientLogo({ name }) {
   const styles = {
-    "Vanar":   { icon: "Hexagon",  font: "font-display tracking-tightest font-bold" },
-    "E.Money": { icon: "CircleDollarSign", font: "font-display font-semibold tracking-tight" },
-    "Dernex":  { icon: "Triangle", font: "font-display font-bold tracking-tight italic" },
-    "cSigma":  { icon: "Sigma",    font: "font-mono font-semibold lowercase" },
-    "Polygon": { icon: "Diamond",  font: "font-display font-bold tracking-tight" },
-    "Plume":   { icon: "Feather",  font: "font-display font-medium tracking-wide italic" },
+    "cSigma Finance":     { icon: "Sigma",    font: "font-mono font-semibold" },
+    "Cross The Ages":     { icon: "Swords",   font: "font-display font-bold tracking-tight" },
+    "Plume Network":      { icon: "Feather",  font: "font-display font-medium tracking-wide italic" },
+    "Collect Foundation": { icon: "Package",   font: "font-display font-semibold tracking-tight" },
+    "Virtua":             { icon: "Globe",     font: "font-display font-bold tracking-tight" },
+    "PolyTrade":          { icon: "Diamond",   font: "font-display font-semibold tracking-tight" },
+    "MahaDao":            { icon: "Hexagon",   font: "font-display font-bold tracking-tightest" },
+    "GoodDollar":         { icon: "CircleDollarSign", font: "font-display font-semibold tracking-tight" },
+    "TrueFi":             { icon: "ShieldCheck", font: "font-display font-bold tracking-tight" },
+    "Ethernity":          { icon: "Infinity",  font: "font-display font-medium italic" },
+    "Boson Protocol":     { icon: "Atom",      font: "font-display font-semibold tracking-tight" },
+    "Dem Exchange":       { icon: "ArrowLeftRight", font: "font-display font-bold tracking-tight" },
+    "Vanar Blockchain":   { icon: "Hexagon",   font: "font-display tracking-tightest font-bold" },
+    "SmartCredit":        { icon: "CreditCard", font: "font-display font-semibold tracking-tight" },
   };
   const s = styles[name] || { icon: "Hexagon", font: "font-display font-semibold" };
   return (
@@ -75,7 +92,7 @@ export function TrustedBy() {
           {[
             { k: "Active engagements",    v: "32 / month" },
             { k: "Repeat client rate",    v: "87%" },
-            { k: "Avg. report turnaround", v: "9 days" },
+            { k: "Avg. report turnaround", v: "7 days" },
             { k: "Critical findings shipped", v: "1,400+" },
           ].map((m) => (
             <div key={m.k} className="flex flex-col items-center text-center">
@@ -188,14 +205,14 @@ const SERVICES = [
     title: "AI Security",
     icon: "Cpu",
     desc: "We test the failure modes that matter. AI security requires understanding prompt manipulation, tool boundaries, and integration vulnerabilities specific to LLMs and agents.",
-    href: "/solutions/ai",
+    href: "/solutions/ai/agent",
   },
   {
     n: "04",
     title: "Security Consultancy",
     icon: "Compass",
     desc: "We embed with engineering teams to shift security left \u2014 secure-by-design reviews, fuzz harnesses, threat modeling, and pre-audit dynamic testing for build-stage discovery.",
-    href: "/solutions/consultancy",
+    href: "/solutions/consultancy/shift-left",
   },
 ];
 
@@ -256,7 +273,77 @@ export function Services() {
 // ============================================================
 // 4.6 — CASE STUDIES
 // ============================================================
+const CASE_STUDIES = [
+  {
+    title: "Ethernity Project Audit",
+    slug: "ethernity",
+    category: "Web3 Security",
+    desc: "Ethernity is a community-oriented platform built to produce limited edition authenticated NFTs and digital artwork created by notable artists and endorsed by prominent figures.",
+    stats: [
+      { k: "Engagement", v: "6 weeks" },
+      { k: "Findings",   v: "18 / 18 fixed" },
+      { k: "Coverage",   v: "8 contracts" },
+    ],
+  },
+  {
+    title: "Vanar Audit",
+    slug: "vanar",
+    category: "Web3 Security",
+    desc: "Vanar is a high-performance Layer 1 blockchain purpose-built for mainstream adoption, offering carbon-neutral infrastructure with gaming and entertainment focus.",
+    stats: [
+      { k: "Engagement", v: "10 weeks" },
+      { k: "Findings",   v: "31 / 31 fixed" },
+      { k: "Coverage",   v: "15 contracts" },
+    ],
+  },
+  {
+    title: "cSigma Audit",
+    slug: "csigma",
+    category: "Web3 Security",
+    desc: "cSigma Finance is a decentralized lending protocol, designed to seamlessly connect global borrowers and lenders. By leveraging AI, the protocol optimizes credit rating, pricing, and risk management.",
+    stats: [
+      { k: "Engagement", v: "8 weeks" },
+      { k: "Findings",   v: "24 / 24 fixed" },
+      { k: "Coverage",   v: "12 contracts" },
+    ],
+  },
+  {
+    title: "Lomads DApp Audit",
+    slug: "lomads",
+    category: "Web3 Security",
+    desc: "Lomads is a decentralized application focused on DAO tooling, enabling teams to manage treasuries, tasks, and governance with on-chain transparency and efficiency.",
+    stats: [
+      { k: "Engagement", v: "5 weeks" },
+      { k: "Findings",   v: "14 / 14 fixed" },
+      { k: "Coverage",   v: "6 contracts" },
+    ],
+  },
+  {
+    title: "Boson Protocol Audit",
+    slug: "boson-protocol",
+    category: "Web3 Security",
+    desc: "Boson Protocol is a decentralized commerce ecosystem enabling the tokenization, transfer, and trade of physical products as redeemable NFTs across the metaverse.",
+    stats: [
+      { k: "Engagement", v: "12 weeks" },
+      { k: "Findings",   v: "27 / 27 fixed" },
+      { k: "Coverage",   v: "18 contracts" },
+    ],
+  },
+];
+
+function shuffleArray(arr) {
+  const shuffled = [...arr];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 export function CaseStudies() {
+  const shuffled = useMemo(() => shuffleArray(CASE_STUDIES), []);
+  const featured = shuffled[0];
+
   return (
     <section className="bg-white py-28 md:py-32">
       <div className="max-w-[1280px] mx-auto px-6">
@@ -264,14 +351,14 @@ export function CaseStudies() {
           <SectionHeading
             label="case_studies"
             title="Securing High-Impact Enterprise Systems."
-            action={<ButtonGhost href="/case-studies" theme="light">All Case Studies</ButtonGhost>}
+            action={<ButtonGhost href="/blogs" theme="light">All Case Studies</ButtonGhost>}
             theme="light"
           />
         </Reveal>
 
         <Reveal delay={120}>
           <a
-            href="/case-studies/csigma"
+            href={featured.slug === "csigma" ? "/case-studies/csigma" : `/case-studies/${featured.slug}`}
             className="group mt-14 grid grid-cols-1 md:grid-cols-12 border border-zinc-200 rounded-lg overflow-hidden hover:border-zinc-300 transition-colors"
           >
             <div className="md:col-span-5 relative bg-black p-8 md:p-10 min-h-[280px] md:min-h-[420px] overflow-hidden">
@@ -292,32 +379,22 @@ export function CaseStudies() {
                   Case Study
                 </span>
                 <h3 className="mt-44 md:mt-56 font-display text-white font-semibold text-[26px] md:text-[32px] leading-tight tracking-tight max-w-[400px]">
-                  cSigma Finance Audit
+                  {featured.title}
                 </h3>
               </div>
             </div>
 
             <div className="md:col-span-7 bg-zinc-50 p-8 md:p-12 flex flex-col">
               <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">
-                Web3 Security &middot; Smart Contract Audit
+                {featured.category} &middot; Smart Contract Audit
               </div>
               <p className="mt-5 text-zinc-700 text-[15px] md:text-[16px] leading-[1.75] max-w-[560px]">
                 <strong className="font-semibold text-zinc-900">Background:</strong>{" "}
-                cSigma Finance is a decentralized lending protocol, designed to
-                seamlessly connect global borrowers and lenders. By leveraging
-                AI, the protocol optimizes critical aspects of the lending
-                process, including credit rating, pricing, and risk management.
-                It facilitates secure capital movements, on-chain accounting,
-                and settlement, while allowing third-party underwriters to
-                participate in pricing risk.
+                {featured.desc}
               </p>
 
               <dl className="mt-8 grid grid-cols-3 gap-4 max-w-[480px]">
-                {[
-                  { k: "Engagement", v: "8 weeks" },
-                  { k: "Findings",   v: "24 / 24 fixed" },
-                  { k: "Coverage",   v: "12 contracts" },
-                ].map((it) => (
+                {featured.stats.map((it) => (
                   <div key={it.k} className="flex flex-col">
                     <dt className="font-mono text-[10.5px] uppercase tracking-[0.15em] text-zinc-500">{it.k}</dt>
                     <dd className="mt-1 font-display font-semibold text-zinc-900 text-[16px]">{it.v}</dd>
@@ -334,6 +411,46 @@ export function CaseStudies() {
             </div>
           </a>
         </Reveal>
+
+        {/* Additional case studies */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {shuffled.slice(1).map((cs, i) => (
+            <Reveal key={cs.slug} delay={60 * i}>
+              <a
+                href={cs.slug === "csigma" ? "/case-studies/csigma" : `/case-studies/${cs.slug}`}
+                className="group block border border-zinc-200 rounded-lg overflow-hidden hover:border-zinc-300 transition-colors"
+              >
+                <div className="relative bg-black p-5 min-h-[140px] overflow-hidden">
+                  <div className="absolute inset-0 terminal-grid opacity-30" />
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: "radial-gradient(80% 60% at 30% 30%, rgba(116,191,0,0.08), transparent 70%)",
+                    }}
+                  />
+                  <div className="relative">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 h-6 rounded-full bg-immune-green/15 text-immune-green font-mono text-[10px] uppercase tracking-[0.15em]">
+                      <span className="w-1 h-1 rounded-full bg-immune-green" />
+                      Case Study
+                    </span>
+                    <h4 className="mt-10 font-display text-white font-semibold text-[16px] leading-snug tracking-tight">
+                      {cs.title}
+                    </h4>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500">
+                    {cs.category}
+                  </div>
+                  <div className="mt-3 inline-flex items-center gap-1.5 font-display text-[13px] font-medium text-zinc-700 group-hover:text-immune-green transition-colors">
+                    Read More
+                    <LIcon name="ArrowRight" size={13} strokeWidth={2.25} className="card-arrow" />
+                  </div>
+                </div>
+              </a>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -363,6 +480,29 @@ const TESTIMONIALS = [
     name: "Manuel C\u00e1rdenas",
     role: "CTO, Vanarchain",
     thumbHue: "from-blue-900 to-zinc-900",
+  },
+];
+
+const VIDEO_TESTIMONIALS = [
+  {
+    name: "Dr. Gabriel Allred",
+    role: "Founder, Bitlectro Labs",
+    thumbHue: "from-purple-900 to-zinc-900",
+  },
+  {
+    name: "Adam Boudjemaa",
+    role: "Lead Blockchain Developer, Polytrade Finance",
+    thumbHue: "from-teal-900 to-zinc-900",
+  },
+  {
+    name: "Jeremi Lepetit",
+    role: "Co-founder and CEO of Retreeb",
+    thumbHue: "from-amber-900 to-zinc-900",
+  },
+  {
+    name: "Ebrahiem Mohamed",
+    role: "Founder, Ethereum STYK",
+    thumbHue: "from-indigo-900 to-zinc-900",
   },
 ];
 
@@ -431,6 +571,47 @@ export function Testimonials() {
               </div>
             </div>
           </Reveal>
+        </div>
+
+        {/* Video Testimonials */}
+        <div className="mt-20">
+          <Reveal>
+            <div className="font-mono text-[12px] tracking-wide text-zinc-500">
+              <span className="text-immune-green">$</span> video_testimonials
+            </div>
+            <h3 className="mt-3 font-display font-semibold text-white text-[24px] sm:text-[28px] tracking-tight">
+              Hear from Our Clients
+            </h3>
+          </Reveal>
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {VIDEO_TESTIMONIALS.map((vt, i) => (
+              <Reveal key={vt.name} delay={i * 60}>
+                <button className="group relative w-full aspect-[16/10] rounded-lg overflow-hidden border border-zinc-700 hover:border-zinc-500 transition-colors">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${vt.thumbHue}`} />
+                  <svg viewBox="0 0 400 250" className="absolute inset-0 w-full h-full" aria-hidden="true">
+                    <defs>
+                      <linearGradient id={`vtlight-${i}`} x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stopColor="rgba(116,191,0,0.15)" />
+                        <stop offset="1" stopColor="rgba(0,0,0,0)" />
+                      </linearGradient>
+                    </defs>
+                    <rect width="400" height="250" fill={`url(#vtlight-${i})`} />
+                    <circle cx="200" cy="110" r="36" fill="rgba(255,255,255,0.06)" />
+                    <ellipse cx="200" cy="210" rx="80" ry="40" fill="rgba(255,255,255,0.04)" />
+                  </svg>
+                  <span className="absolute inset-0 flex items-center justify-center">
+                    <span className="w-12 h-12 rounded-full bg-immune-green flex items-center justify-center shadow-[0_8px_30px_-8px_rgba(116,191,0,0.5)] group-hover:scale-110 transition-transform">
+                      <LIcon name="Play" size={18} strokeWidth={2} className="text-black ml-0.5" />
+                    </span>
+                  </span>
+                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
+                    <div className="font-display text-white text-[13px] font-semibold leading-snug">{vt.name}</div>
+                    <div className="font-mono text-[10px] text-zinc-400 mt-0.5">{vt.role}</div>
+                  </div>
+                </button>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -576,6 +757,7 @@ export function Insights() {
 // 4.9 — BOTTOM CTA
 // ============================================================
 export function CTA() {
+  const [contactOpen, setContactOpen] = useState(false);
   return (
     <section className="relative bg-black py-32 md:py-40 overflow-hidden">
       <div className="absolute inset-0 terminal-grid opacity-60 pointer-events-none" />
@@ -603,9 +785,16 @@ export function CTA() {
         </Reveal>
         <Reveal delay={280}>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <ButtonPrimary href="/contact" size="lg">Talk to an Expert</ButtonPrimary>
+            <button
+              onClick={() => setContactOpen(true)}
+              className="inline-flex items-center gap-2 rounded-full bg-immune-green text-black font-display font-semibold whitespace-nowrap h-12 px-6 text-[15px] hover:bg-[#82d600] transition-colors"
+            >
+              Talk to an Expert
+              <span className="inline-flex"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+            </button>
             <ButtonSecondary href="/contact" theme="dark" size="lg">Send Query</ButtonSecondary>
           </div>
+          <ContactFormModal open={contactOpen} onClose={() => setContactOpen(false)} />
         </Reveal>
       </div>
     </section>
