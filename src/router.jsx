@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createHashRouter } from 'react-router-dom';
 import Home from './pages/Home';
 import Services from './pages/Services';
 import {
@@ -11,13 +11,10 @@ import {
   ContactPageRoute,
 } from './pages/Chrome';
 
-const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/';
-
-export const router = createBrowserRouter([
-  // Home
+export const router = createHashRouter([
   { path: '/', element: <Home /> },
 
-  // Solutions / Service pages — catch-all for nested service routes
+  // Solutions / Service pages
   { path: '/solutions/*', element: <Services /> },
 
   // Chrome / top-level pages
@@ -35,4 +32,4 @@ export const router = createBrowserRouter([
   { path: '/case-studies/*', element: <ClientPage /> },
   { path: '/careers', element: <AboutPageRoute /> },
   { path: '/legal/*', element: <Home /> },
-], { basename });
+]);
